@@ -15,13 +15,13 @@ services:
         soft: -1
         hard: -1
     ports:
-      - "9200:9200"
+      - "127.0.0.1:9200:9200"
 
   opensearch-dashboards:
     image: opensearchproject/opensearch-dashboards:2.11.0
     container_name: opensearch-dashboards
     ports:
-      - "5601:5601"
+      - "127.0.0.1:5601:5601"
     environment:
       - OPENSEARCH_HOSTS=["http://opensearch:9200"]
       - DISABLE_SECURITY_DASHBOARDS_PLUGIN=true
@@ -33,7 +33,7 @@ services:
     container_name: logstash
     volumes:
       - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
-      - ./logstash-query.sql:/usr/share/logstash/config/logstash-query.sql   # ← đổi chỗ này
+      - ./logstash-query.sql:/usr/share/logstash/config/logstash-query.sql
       - ./postgresql-42.7.9.jar:/usr/share/logstash/lib/postgresql-42.7.9.jar
       - logstash_data:/usr/share/logstash/data
     environment:
